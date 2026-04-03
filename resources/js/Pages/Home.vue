@@ -118,7 +118,7 @@ const features = [
             <Pacdiv v-for="tour in tours" :key="tour.title" :title="tour.title" :image="tour.image" :tag="tour.tag" />
         </div>
     </section>
-    <section class="md:px-20 py-20 p-4 bg-amber-50">
+    <section class="md:px-80 py-20 p-4 bg-amber-50">
 
         <!-- Heading -->
         <div class="text-center pb-10">
