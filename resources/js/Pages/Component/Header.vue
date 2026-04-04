@@ -22,9 +22,9 @@ const logo = '/assets/img/logo.png';
             <X :class="[ isOpen ? 'block' : 'hidden', 'w-6 h-6 md:hidden' ]" @click="Toggler"/>
         </div>
         <ul :class="[ isOpen ? 'flex' : 'hidden', 'md:flex md:flex-row flex-col space-x-4 px-5 pt-4 md:pt-0 md:px-0']">
-            <li class="font-semibold text-md"><Link href="/">Home</Link></li>
-            <li class="font-semibold text-md"><Link href="/about">About</Link></li>
-            <li class="font-semibold text-md"><Link href="/contact">Contact</Link></li>
+            <li class="font-semibold text-md"><Link :href="route('home')">Home</Link></li>
+            <li class="font-semibold text-md"><Link :href="route('about')">About</Link></li>
+            <li class="font-semibold text-md"><Link :href="route('register')">Register</Link></li>
         </ul>
         <div :class="[ isOpen ? 'flex' : 'hidden', 'md:flex space-x-8 items-center px-5 md:px-0']">
             <Link href="/register" class="font-semibold text-md flex items-center gap-2"><MessageCircle class="w-4 h-4"/> +91 7651842968</Link>

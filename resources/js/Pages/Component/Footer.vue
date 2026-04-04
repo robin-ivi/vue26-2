@@ -35,6 +35,7 @@ const logo = '/assets/img/white-logo.webp';
                 <h6 class="font-bold">Support</h6>
                 <Link href="/faq" class="block mt-2 text-gray-400 font-semibold">FAQ</Link>
                 <Link href="/help" class="block mt-2 text-gray-400 font-semibold">Help Center</Link>
+                <Link href="/" class="block mt-2 text-gray-400 font-semibold" preserve-scroll>Refresh</Link>
             </div>
         </div>
         <div class="flex flex-col md:flex-row gap-4 justify-between border-t border-gray-700 mt-4 pt-5 items-center">

@@ -85,6 +85,7 @@ const features = [
             :style="{ backgroundImage: `url(${bgImg})` }">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/50"></div>
             <div class="text-center text-white z-10 gap-2 flex flex-col items-center justify-center">
+                <h1>{{ $page.props.user }}</h1>
                 <h1 class="text-2xl md:text-5xl font-bold mb-4">India’s Trusted <span
                         class="text-amber-500">Spiritual</span> Travel Experts</h1>
                 <h2 class="text-xl md:text-3xl font-semibold mb-4">Curated Pilgrimage & Spiritual Journeys Across India

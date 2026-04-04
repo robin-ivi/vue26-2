@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite('resources/js/app.js')
         <x-inertia::head />
+        @routes
     </head>
     <body>
         <x-inertia::app />
