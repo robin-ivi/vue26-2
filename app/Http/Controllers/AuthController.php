@@ -2,32 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
+    protected $authService;
 
-        // dd($request->all());
-        $fields = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string',
-            'confirm_password' => 'required|string|same:password',
-        ]);
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
 
-        $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password']),
-        ]);
+    public function register(RegisterRequest $request)
+    {
+        $user = $this->authService->register($request->validated());
+        return to_route('dashboard');
+    }
 
-            // return response()->json([
-            //     'message' => 'User registered successfully',
-            //     'user' => $user
-            // ], 201);
-            return redirect()->route('home');
+    public function login(LoginRequest $request)
+    {
+        $user = $this->authService->login($request->validated());
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Invalid credentials'
+            ]);
+        }
 
+        return to_route('dashboard');
+    }
+
+    public function logout(Request $request)
+    {
+        $this->authService->logout($request);
+        return to_route('login');
+    }
+
+    public function dashboard() 
+    {
+        return inertia('dashboard');
     }
 }
