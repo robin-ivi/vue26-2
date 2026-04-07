@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -11,7 +12,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 });
 
-Route::inertia('/', 'Home')->name('home');
+Route::inertia('/', 'Home', ['users' => User::paginate(3)])->name('home');
 Route::inertia('/register', 'Register')->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::inertia('/login', 'Login')->name('login');

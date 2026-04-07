@@ -20,6 +20,10 @@ class AuthService
     {
         $data['password'] = bcrypt($data['password']);
 
+        if (isset($data['avatar'])) {
+            $data['avatar'] = $data['avatar']->store('avatars', 'public');
+        }
+        
         $user = $this->userRepository->create($data);
 
         Auth::login($user);
@@ -29,15 +33,15 @@ class AuthService
 
     public function login($credentials)
     {
-        if (!auth()->attempt($credentials)) {
+        if (!Auth::guard()->attempt($credentials)) {
             return false;
         }
-        return auth()->user();
+        return Auth::user();
     }
 
     public function logout($request)
     {
-        auth()->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

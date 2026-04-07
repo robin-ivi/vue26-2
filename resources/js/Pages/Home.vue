@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
+import { Link } from '@inertiajs/vue3';
+
+defineProps({
+    users: Object
+})
 
 // 🔥 IMPORTANT CSS
 import 'swiper/css'
 
 import Pacdiv from './Component/Pacdiv.vue';
+import Pagination from './Component/Pagination.vue';
 
 
 const bgImg = '/assets/img/homebanner.jpg';
@@ -79,7 +85,26 @@ const features = [
 <template>
 
     <Head title="Home" />
-
+    <section class="py-10 px-80">
+        <table class="table-auto w-full">
+            <thead class="border bg-amber-200">
+                <tr>
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="user in users.data" :key="user.id" class="border">
+                    <td><img :src="user.avatar ? ('storage/' + user.avatar) : ''" :alt="user.name"
+                            class="w-10 h-10 rounded-full" /></td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <Pagination :paginator="users" />
+    </section>
     <section>
         <div class="bg-cover bg-center flex items-center justify-center relative md:h-120 h-80 p-4"
             :style="{ backgroundImage: `url(${bgImg})` }">
@@ -156,4 +181,5 @@ const features = [
         <!-- 🔥 SWIPER END -->
 
     </section>
+
 </template>
