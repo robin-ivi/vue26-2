@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 defineProps({
-   paginator: {
-    type: Object,
-    required: true
-   }
+    paginator: {
+        type: Object,
+        required: true
+    }
 })
 </script>
 <template>

@@ -80,6 +80,8 @@ const features = [
         icon: '/assets/img/trusted.png'
     }
 ];
+
+
 </script>
 
 <template>
