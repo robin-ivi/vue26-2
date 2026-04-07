@@ -8,7 +8,7 @@ const size = "24px";
 const inCount = ref(0);
 const bulb = "/assets/img/img_lightBulb.svg";
 const lightOn = ref(false);
-
+const ttcv = ref("");
 </script>
 <template>
     <div class="p-4 md:px-80">
@@ -17,6 +17,8 @@ const lightOn = ref(false);
         <div v-bind:class="ddx"></div>
         <input v-on:input="inCount++">
         <h3>{{ +inCount }}</h3>
+        <input type="text" v-model="ttcv">
+        <p>{{ ttcv }}</p>
         <p class="text-lg mb-4">
             Welcome to DDX, your trusted partner for spiritual travel experiences across India. We are dedicated to
             curating unforgettable pilgrimage journeys that connect you with the rich spiritual heritage of our country.
@@ -31,7 +33,7 @@ const lightOn = ref(false);
                 <div v-show="lightOn" class="absolute top-[10%] left-[10%] w-[80%] h-[80%] rounded-full bg-yellow-300"></div>
                 <img :src="bulb" alt="Light Bulb" class="relative w-full">
             </div>
-            <button @click="lightOn = !lightOn" class="block mx-auto">Switch light</button>
+            <button @click="lightOn = !lightOn" class="block mx-auto border m-3 p-1 rounded cursor-pointer bg-gray-700 text-white px-3 hover:bg-gray-600">Switch light</button>
         </div>
     </div>
 
