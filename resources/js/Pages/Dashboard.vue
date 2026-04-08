@@ -1,27 +1,33 @@
 <script setup>
+import { usePage } from '@inertiajs/vue3'
 import { ref, onMounted } from 'vue'
 
-const bookings = ref([])     
+const bookings = ref([])
 const loading = ref(true)
 const error = ref(null)
 
 onMounted(async () => {
     try {
-        const apiUrl = 'https://jsonplaceholder.typicode.com/todos' 
-        const res = await fetch(apiUrl)                              
-        bookings.value = await res.json() 
+        const apiUrl = 'https://jsonplaceholder.typicode.com/todos'
+        const res = await fetch(apiUrl)
+        bookings.value = await res.json()
     } catch (err) {
         console.error('API fetch failed', err)
         error.value = 'Failed to fetch bookings'
     } finally {
-        loading.value = false                                    
+        loading.value = false
     }
 })
+const page = usePage();
 </script>
 
 <template>
+
     <Head title="Dashboard" />
     <div class="md:py-20 md:px-80 p-2">
+        <div v-if="page.props.flash.message" class="toast">
+            {{ page.props.flash.message }}
+        </div>
         <h1>{{ $page.props.auth.user.name }}</h1>
         <h1 class="text-2xl font-bold mb-4">My Bookings</h1>
 

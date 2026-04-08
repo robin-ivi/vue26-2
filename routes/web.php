@@ -6,13 +6,25 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use Krishna\GoogleAuth\Controllers\GoogleController;
+use Symfony\Component\HttpFoundation\Request;
 
 Route::middleware(['web'])->group(function () {
     Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google');
     Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 });
 
-Route::inertia('/', 'Home', ['users' => User::paginate(3)])->name('home');
+Route::get('/', function (Request $request) {
+    return inertia('Home', [
+        'users' => User::when($request->search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
+        })->paginate(3)->withQueryString(),
+
+        'can' => [
+            'deleteUser' => Auth::user() ? Auth::user()->can('delete', User::class) : false,
+        ],
+    ]);
+})->name('home');
+
 Route::inertia('/register', 'Register')->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::inertia('/login', 'Login')->name('login');

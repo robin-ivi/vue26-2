@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
 defineProps({
-    users: Object
+    users: Object,
+    can: Object
 })
 
 // 🔥 IMPORTANT CSS
@@ -12,6 +13,8 @@ import 'swiper/css'
 
 import Pacdiv from './Component/Pacdiv.vue';
 import Pagination from './Component/Pagination.vue';
+import { ref, watch } from 'vue';
+import { debounce } from 'lodash';
 
 
 const bgImg = '/assets/img/homebanner.jpg';
@@ -81,19 +84,29 @@ const features = [
     }
 ];
 
+const search = ref('');
 
+watch(search, debounce(
+    (newValue) => router.get('/', { search: newValue }, { preserveState: true, replace: true }), 500
+)
+);
 </script>
 
 <template>
 
     <Head title="Home" />
     <section class="py-10 px-80">
+        <div>
+            <input type="text" v-model="search" placeholder="Serch Data"
+                class="border border-zinc-600 rounded px-4 py-2">
+        </div>
         <table class="table-auto w-full">
             <thead class="border bg-amber-200">
                 <tr>
                     <th>Avatar</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th v-if="can.deleteUser">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +115,10 @@ const features = [
                             class="w-10 h-10 rounded-full" /></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
+                    <td v-if="can.deleteUser">
+                        <button @click="router.delete(`/users/${user.id}`)"
+                            class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
