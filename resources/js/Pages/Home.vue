@@ -8,7 +8,6 @@ defineProps({
     can: Object
 })
 
-// 🔥 IMPORTANT CSS
 import 'swiper/css'
 
 import Pacdiv from './Component/Pacdiv.vue';
@@ -198,7 +197,5 @@ watch(search, debounce(
 
         </Swiper>
         <!-- 🔥 SWIPER END -->
-
     </section>
-
 </template>
